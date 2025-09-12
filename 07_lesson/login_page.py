@@ -12,21 +12,11 @@ class LoginPage(BasePage):
         super().__init__(driver)
     
     def open(self):
+        """Открыть страницу логина"""
         self.driver.get("https://www.saucedemo.com/")
-        return self
-    
-    def enter_username(self, username):
-        self.send_keys(self.USERNAME_INPUT, username)
-        return self
-    
-    def enter_password(self, password):
-        self.send_keys(self.PASSWORD_INPUT, password)
-        return self
-    
-    def click_login(self):
-        self.click(self.LOGIN_BUTTON)
     
     def login(self, username, password):
-        self.enter_username(username)
-        self.enter_password(password)
-        self.click_login()
+        """Выполнить полный процесс логина"""
+        self.send_keys(self.USERNAME_INPUT, username)
+        self.send_keys(self.PASSWORD_INPUT, password)
+        self.click(self.LOGIN_BUTTON)

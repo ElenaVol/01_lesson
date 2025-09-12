@@ -15,34 +15,39 @@ class TestSauceDemo:
         self.driver.quit()
     
     def test_checkout_total_amount(self):
-        # Создаем объекты страниц
+       
         login_page = LoginPage(self.driver)
         products_page = ProductsPage(self.driver)
         cart_page = CartPage(self.driver)
         checkout_page = CheckoutPage(self.driver)
         
-        # 1. Открываем сайт и авторизуемся
-        login_page.open().login("standard_user", "secret_sauce")
+      
+        login_page.open()
+        login_page.login("standard_user", "secret_sauce")
         
-        # 2. Добавляем товары в корзину
-        products_page.add_backpack_to_cart()
-        products_page.add_bolt_tshirt_to_cart()
-        products_page.add_onesie_to_cart()
+       
+        backpack_add_button = (By.ID, "add-to-cart-sauce-labs-backpack")
+        tshirt_add_button = (By.ID, "add-to-cart-sauce-labs-bolt-t-shirt")
+        onesie_add_button = (By.ID, "add-to-cart-sauce-labs-onesie")
         
-        # 3. Переходим в корзину
+        products_page.click(backpack_add_button)
+        products_page.click(tshirt_add_button)
+        products_page.click(onesie_add_button)
+        
+       
         products_page.go_to_cart()
         
-        # 4. Нажимаем кнопку Checkout
+       
         cart_page.click_checkout()
         
-        # 5. Заполняем форму оформления заказа
+       
         checkout_page.fill_checkout_form("Иван", "Иванов", "123456")
         checkout_page.click_continue()
         
-        # 6. Получаем итоговую сумму
-        total_text = checkout_page.get_total()
+    
+        total_text = checkout_page.get_total_text()
         
-        # 7. Проверяем итоговую сумму
+      
         assert "$58.29" in total_text, f"Ожидалась сумма $58.29, но получено: {total_text}"
         
         print(f"Total: {total_text}")
