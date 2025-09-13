@@ -50,4 +50,4 @@ class TestSauceDemo:
       
         assert "$58.29" in total_text, f"Ожидалась сумма $58.29, но получено: {total_text}"
         
-        print(f"Total: {total_text}")
+       

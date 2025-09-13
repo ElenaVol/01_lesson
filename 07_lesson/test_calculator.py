@@ -15,10 +15,7 @@ class TestCalculator:
     
     def test_calculator_with_delay(self):
         """Тест калькулятора с задержкой 45 секунд"""
-       
-        calculator_page = CalculatorPage(self.driver)
-        
-      
+                  
         self.driver.get("https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html")
         
         

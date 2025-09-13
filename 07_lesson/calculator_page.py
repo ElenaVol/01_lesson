@@ -1,13 +1,12 @@
 from selenium.webdriver.common.by import By
-from saucedemo_base_page import BasePage
+from base_page import BasePage
 
 class CalculatorPage(BasePage):
-    # Локаторы элементов калькулятора
+  
     DELAY_INPUT = (By.CSS_SELECTOR, "#delay")
     DISPLAY = (By.CSS_SELECTOR, ".screen")
     
-    # Универсальный локатор для кнопок
-    BUTTON = (By.XPATH, "//span[text()='{}']")
+    BUTTON_LOCATOR = (By.XPATH, "//span[text()='{}']")
     
     def __init__(self, driver):
         super().__init__(driver)
@@ -22,5 +21,5 @@ class CalculatorPage(BasePage):
     
     def click_button(self, button_text):
         """Нажать кнопку с указанным текстом"""
-        button_locator = (self.BUTTON[0], self.BUTTON[1].format(button_text))
+        button_locator = (self.BUTTON_LOCATOR[0], self.BUTTON_LOCATOR[1].format(button_text))
         self.click(button_locator)

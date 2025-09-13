@@ -25,11 +25,3 @@ class BasePage:
     def get_text(self, locator):
         element = self.find_element(locator)
         return element.text
-    
-    def is_element_present(self, locator):
-        try:
-            self.find_element(locator)
-            return True
-        except TimeoutException:
-            return False
-   
