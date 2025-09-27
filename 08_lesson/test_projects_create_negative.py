@@ -24,14 +24,18 @@ class TestProjectsCreateNegative:
             f"Response: {response.text}"
         )
         
-        response_json = response.json()
-        assert "message" in response_json or "error" in response_json, (
-            "Ответ должен содержать сообщение об ошибке"
+        error_list = response.json()
+        assert isinstance(error_list, list), "Ответ должен быть списком ошибок"
+        assert len(error_list) > 0, "Список ошибок не должен быть пустым"
+        
+        all_errors = " ".join(error_list).lower()
+        
+        assert any("title" in error for error in error_list), (
+            f"Ошибка должна содержать информацию о поле title: {error_list}"
         )
         
-        error_message = response_json.get("message", "") or response_json.get("error", "")
-        assert "title" in error_message.lower(), (
-            f"Ошибка должна содержать информацию о поле title: {error_message}"
-        )
+        title_errors = [error for error in error_list if "title" in error.lower()]
+        assert len(title_errors) > 0, f"Не найдено ошибок про title: {error_list}"
         
         print("✅ Корректно обработана ошибка валидации при создании проекта без title")
+        print(f"Полученные ошибки: {error_list}")
