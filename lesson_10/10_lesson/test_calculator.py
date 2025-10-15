@@ -1,4 +1,3 @@
-
 import pytest
 import time
 import allure
@@ -40,19 +39,16 @@ class TestCalculator:
         
         with allure.step("Ожидать результат вычислений"):
             start_time = time.time()
-            timeout = 50 
+            timeout = 55
             result = ""
             
+            # Ожидаем результат в течение timeout секунд
             while time.time() - start_time < timeout:
-                try:
-                    result = calculator_page.get_display_text()
-                    if result and result != "0":
-                        break
-                except:
-                    pass
+                result = calculator_page.get_display_text()
+                if result == "15":
+                    break
                 time.sleep(1)
-        
-        with allure.step("Проверить результат вычислений"):
+            
             allure.attach(f"Полученный результат: {result}", name="Результат вычислений")
             assert result == "15", f"Ожидался результат 15, но получено {result}"
         

@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from base_page import BasePage
 import allure
 
@@ -43,6 +44,16 @@ class CheckoutPage(BasePage):
         Нажать кнопку продолжения оформления заказа.
         """
         self.click(self.CONTINUE_BUTTON)
+    
+    @allure.step("Ожидание появления итоговой суммы")
+    def wait_total_visible(self, timeout=10):
+        """
+        Ожидать появления итоговой суммы на странице.
+        
+        Args:
+            timeout: int - время ожидания в секундах (по умолчанию 10)
+        """
+        self.wait.until(EC.presence_of_element_located(self.TOTAL))
     
     @allure.step("Получить итоговую сумму заказа")
     def get_total_text(self):
